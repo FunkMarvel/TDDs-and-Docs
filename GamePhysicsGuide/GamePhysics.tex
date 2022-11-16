@@ -1,0 +1,277 @@
+\documentclass[%preprint,
+notitlepage,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+]{revtex4-2}  % defines the basic parameters of the document
+
+% if you want a single-column, remove reprint
+
+% allows special characters (including æøå)
+\usepackage[norsk]{babel}
+\usepackage[utf8]{inputenc}
+
+%% note that you may need to download some of these packages manually, it depends on your setup.
+%% I recommend downloading TeXMaker, because it includes a large library of the most common packages.
+
+\usepackage{physics,amssymb}  % mathematical symbols (physics imports amsmath)
+\usepackage{graphicx}         % include graphics such as plots
+\usepackage{xcolor}           % set colors
+\usepackage{hyperref}         % automagic cross-referencing (this is GODLIKE)
+\usepackage{tikz}             % draw figures manually
+\usetikzlibrary{tikzmark}
+\usepackage{listings}         % display code
+\usepackage{subfigure}        % imports a lot of cool and useful figure commands
+\usepackage{cprotect}
+\usepackage{float}
+\usepackage{caption}
+
+%\setlength{\parindent}{0px}
+
+%Ta med disse kommandoene
+\newcommand{\nnode}[2]{\node (#1) at (#2) {#1};}    %Her defineres nnode kommandoen
+\newcommand{\relnode}[2]{\draw (#2) node[fill,circle,scale=0.6]{} (#2);\node (#1) at (#2) {};}  %Her defineres relnode kommandoen
+
+% defines the color of hyperref objects
+% Blending two colors:  blue!80!black  =  80% blue and 20% black
+\hypersetup{ % this is just my personal choice, feel free to change things
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}}
+%
+%% Defines the style of the programming listing
+%% This is actually my personal template, go ahead and change stuff if you want
+\lstnewenvironment{python}{
+	\lstset{ %
+		inputpath=,
+		backgroundcolor=\color{white!95!black},
+		basicstyle={\ttfamily\scriptsize},
+		commentstyle=\color{orange},
+		language=Python,
+		%numbers=left,
+		%stepnumber=1,
+		morekeywords={True,False},
+		tabsize=4,
+		stringstyle=\color{green!55!black},
+		frame=single,
+		keywordstyle=\color{blue},
+		showstringspaces=false,
+		columns=fullflexible,
+		keepspaces=true,
+		upquote=true}
+}{}
+
+\lstnewenvironment{cpp}{
+	\lstset{ %
+		inputpath=,
+		backgroundcolor=\color{white!95!black},
+		basicstyle={\ttfamily\scriptsize},
+		commentstyle=\color{orange},
+		language=C++,
+		%numbers=left,
+		%stepnumber=1,
+		morekeywords={True,False},
+		tabsize=4,
+		stringstyle=\color{green!55!black},
+		frame=single,
+		keywordstyle=\color{blue},
+		showstringspaces=false,
+		columns=fullflexible,
+		keepspaces=true,
+		upquote=true}
+}{}
+
+\lstnewenvironment{sql}{
+	\lstset{ %
+		inputpath=,
+		backgroundcolor=\color{white!95!black},
+		basicstyle={\ttfamily\scriptsize},
+		commentstyle=\color{orange},
+		language=SQL,
+		%numbers=left,
+		%stepnumber=1,
+		morekeywords={True,False},
+		tabsize=4,
+		stringstyle=\color{green!55!black},
+		frame=single,
+		keywordstyle=\color{blue},
+		showstringspaces=false,
+		columns=fullflexible,
+		keepspaces=true,
+		upquote=true}
+}{}
+
+\lstnewenvironment{mongodb}{
+	\lstset{ %
+		inputpath=,
+		backgroundcolor=\color{white!95!black},
+		basicstyle={\ttfamily\scriptsize},
+		commentstyle=\color{orange},
+		language=bash,
+		%numbers=left,
+		%stepnumber=1,
+		morekeywords={True,False},
+		tabsize=4,
+		stringstyle=\color{green!55!black},
+		frame=single,
+		keywordstyle=\color{blue},
+		showstringspaces=false,
+		columns=fullflexible,
+		keepspaces=true,
+		upquote=true}
+}{}
+
+
+%\lstset{literate=
+%  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+%  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+%  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+%  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+%  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+%  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+%  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+%  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+%  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+%  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+%  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+%  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+%  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+%}
+
+\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand{\tuple}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\newcommand{\imp}{\ensuremath{\rightarrow}}
+
+\newcommand{\ceil}[1]{\ensuremath{\lceil #1 \rceil}}
+\newcommand{\floor}[1]{\ensuremath{\lfloor #1 \rfloor}}
+
+\usepackage{thmtools}
+\DeclareMathOperator{\nullspace}{Nul}
+\DeclareMathOperator{\collspace}{Col}
+\DeclareMathOperator{\rref}{Rref}
+%%\DeclareMathOperator{\dim}{Dim}
+
+ % "meq": must be equal
+\newcommand{\meq}{\overset{!}{=}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand*\Heq{\ensuremath{\overset{\kern2pt L'H}{=}}}
+\usepackage{bm}
+\newcommand{\uveci}{{\bm{\hat{\textnormal{\bfseries\i}}}}}
+\newcommand{\uvecj}{{\bm{\hat{\textnormal{\bfseries\j}}}}}
+\DeclareRobustCommand{\uvec}[1]{{%
+  \ifcsname uvec#1\endcsname
+     \csname uvec#1\endcsname
+   \else
+    \bm{\hat{\mathbf{#1}}}%
+   \fi
+}}
+\usepackage[binary-units=true]{siunitx}
+
+\newcommand{\twopartdef}[4]
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+
+\makeatletter
+\newcommand*{\balancecolsandclearpage}{%
+  \close@column@grid
+  \cleardoublepage
+  \twocolumngrid
+}
+\makeatother
+
+\AtBeginEnvironment{align}{\setcounter{equation}{0}}
+\newcounter{subproject}
+\renewcommand{\thesubproject}{\alph{subproject}}
+\newenvironment{subproj}{
+\begin{description}
+	\item[\refstepcounter{subproject}(\thesubproject)]
+}{\end{description}}
+
+
+\begin{document}
+\title{An introduction to framerate-independent game physics}   % self-explanatory
+\author{Anders P. Åsbø}               % self-explanatory
+\date{\today}                             % self-explanatory
+\noaffiliation                            % ignore this
+
+\maketitle                                % creates the title, author, date
+\tableofcontents
+\newpage
+
+\section{Sliding physics}
+\subsection{Identifying the forces}
+Forces involved in a character sliding on a surface are
+\begin{align*}
+	\vec{F}_{\mu} = -\mu |\vec{N}| \hat{v}_{s},
+\end{align*}
+where \(\mu\) is the coefficient of friction (roughness) of the surface, \(\vec{N}\) is the normal force
+\begin{align*}
+	\vec{N} = - m\vec{g}\cdot \hat{n},
+\end{align*}
+from the surface on the  character, where \(\hat{n}\) is the unit vector normal to the surface, \(m\) is the mass of the character and \(\vec{g}\) is the gravitational accelleration vector. Futhermore, \(\hat{v}_{s}\) is the unit vector in the direction of the character's velocity along the surface. It is defined as
+\begin{align*}
+	\hat{v}_{s} = \vec{v} - \left(\hat{n} \cdot \vec{v}\right)\hat{n},
+\end{align*}
+where \(\vec{v}\) is the velocity of the character.
+Finally, the character is affected by gravity
+\begin{align*}
+	\vec{G} = m\vec{g}.
+\end{align*}
+
+\subsection{Finding acceleration from forces, and updating velocity}
+which can be written mathematically as
+\begin{align*}
+	\sum \vec{F} = m\vec{a},
+\end{align*}
+where \(\Sigma\) is shorthand for "sum of all" and \(\vec{F}\) is shorthand for the forces acting on our system (character). \(\vec{a}\) is the acceleration vector that we want to find, since it can be used to calculate per frame change in velocity.
+ 
+Using the forces defined for our system we get
+ \begin{align*}
+    \vec{F}_{\mu} + \vec{G} &= m\vec{a}, \\
+    \vec{a} &= \frac{\vec{F}_{\mu} + \vec{G}}{m} \\
+            &= \frac{\vec{F}_{\mu}}{m} + \vec{g}.
+\end{align*}
+which is the acceleration we're interested in. We can then find the change in velocity \(\Delta\vec{v}\) as acceleration multiplied by the time spent accelerating, which per frame is deltaTime \(\Delta t\). Thus, the updated velocity is the old velocity plus the change in velocity
+\begin{align*}
+    \vec{v}_{\text{new}} &= \vec{v}_{\text{old}} + \Delta\vec{v} \\
+                         &= \vec{v}_{\text{old}} + \vec{a}\Delta t.
+\end{align*}
+
+\subsection{Finding change in position}
+Now that we have found the change in velocity between frames, we need to find the change in position, which gives us the actual motion of the character. To do this, we use that the change in position over a given time is equal to the updated velocity multiplied by deltaTime
+\begin{align*}
+    \vec{r}_{\text{new}} &= \vec{r}_{\text{old}} + \vec{v}_{\text{new}}\Delta t \\
+                         &= \vec{r}_{\text{old}} + \vec{v}_{\text{old}}\Delta t + \vec{a}\Delta t^{2}.
+\end{align*}
+
+This is called forward Euler integration, and is the simplest way to calculate movement from forces when the timestep deltaTime is variable. However, it is also one of the least accurate methods, and does not conserve important quantities like total energy and total momentum. Most physics engines use a fixed timestep that does not vary, allowing for more accurate integration methods like Velocity-Verlet, which *does* conserve total energy and total momentum, and therefore garantee that the system won't suddenly gain a lot of kinetic energy and yeet itself to infinity, among other things.
+
+\end{document}
