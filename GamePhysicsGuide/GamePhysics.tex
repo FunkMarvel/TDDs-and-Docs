@@ -226,6 +226,13 @@ notitlepage,
 \tableofcontents
 \newpage
 
+\section{Introduction}
+A major part of game programming is handling the motion of objects or characters. However, it is often dificult to design authentic feeling game physics and a lot of new game programmers work their way towards usable physics by trial and error. With this paper, I aim to offer an introduction to real-world physics in the form of Newtonian mechanics, as well as the mathematical framework for finding movement from the forces applied. The intention is to help build intuition for how to determine the forces needed when simulating physics, and offer a systematic way to build authentic feeling physics for games.
+
+\section{Forces and other vectors}
+\subsection{Defining our system}
+The first step when figuring out the physics of motion, is to define the system we want to simulate the physics of. By system, I refer to the thing that is going to move, be it a ball, swarm, npc or player character. For example, if we want to simulate the physics of a falling ball, then our system will be the ball itself. The ground, air, and any other object that might interact with the ball, are considered external to our system.
+
 \section{Sliding physics}
 \subsection{Identifying the forces}
 Forces involved in a character sliding on a surface are
