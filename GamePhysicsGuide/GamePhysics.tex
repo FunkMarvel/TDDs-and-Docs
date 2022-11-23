@@ -226,15 +226,26 @@ notitlepage,
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\section{Introduction} \label{sec:Intro}
 A major part of game programming is handling the motion of objects or characters. However, it is often dificult to design authentic feeling game physics and a lot of new game programmers work their way towards usable physics by trial and error. With this paper, I aim to offer an introduction to real-world physics in the form of Newtonian mechanics, as well as the mathematical framework for finding movement from the forces applied. The intention is to help build intuition for how to determine the forces needed when simulating physics, and offer a systematic way to build authentic feeling physics for games.
 
-\section{Forces and other vectors}
-\subsection{Defining our system}
+\section{Mathematical tools} \label{sec:Maths}
+In order to model the physics of a system in a given state, we first have to familiarize ourselves with the mathematical tools needed to build our model. This guide presuposes that the reader is familliar with arithmetic (addition, subtraction, multiplication and division of numbers), as well as basic algebra (equations, constants, variables and using letters as placeholders for numbers). However, the main language of Newtonian mechanics is calculus and vectors, which I aim to give a sufficient primer on.
+
+\subsection{Frames of reference} \label{sec:Maths:subsec:FrameOfReference}
+When analyzing any physical system, the number one priority is to define a coordinate-system that we can use to orient our system by. Such a coordinate-system is called a frame of reference (or reference frame), because it is the spacial 'frame' that lengths, positions, rotations, and rates of change are measured in reference to. For example, if you're looking at a game-object in a game engine and retrieve its position using built-in methods, you will probably get a vector-object with an X, Y, and Z value. These values tell you where the object is \textit{relative} to the game engine's default reference frame.
+
+So what is a coordinate system? Well, its a collection of measuring sticks that allow us to uniquely label any point in space using three numbers, where each number represents how far along each measuring stick we have to move to get to that point. The measuring sticks are what we call axes.
+
+\subsection{What are vectors?} \label{sec:Maths:subsec:WhatVectors}
+The most usefull mathematical object in physics is probably the vector. It gives us a way to encapsulate both size and direction into a single object. In fact, if you ask a phycisist what a vector is, they will most likely tell you ''A vector is like an arrow, it has a length or size, and a direction in which it is pointing.''.
+
+\section{Forces and other vectors} \label{sec:ForcesAndVecs}
+\subsection{Defining our system} \label{sec:ForcesAndVecs:subsec:DefSys}
 The first step when figuring out the physics of motion, is to define the system we want to simulate the physics of. By system, I refer to the thing that is going to move, be it a ball, swarm, npc or player character. For example, if we want to simulate the physics of a falling ball, then our system will be the ball itself. The ground, air, and any other object that might interact with the ball, are considered external to our system.
 
-\section{Sliding physics}
-\subsection{Identifying the forces}
+\section{Sliding physics} \label{sec:Sliding}
+\subsection{Identifying the forces} \label{sec:Sliding:subsec:FindForces}
 Forces involved in a character sliding on a surface are
 \begin{align*}
 	\vec{F}_{\mu} = -\mu |\vec{N}| \hat{v}_{s},
@@ -253,12 +264,12 @@ Finally, the character is affected by gravity
 	\vec{G} = m\vec{g}.
 \end{align*}
 
-\subsection{Finding acceleration from forces, and updating velocity}
+\subsection{Finding acceleration from forces, and updating velocity} \label{sec:Sliding:subsec:Accel}
 which can be written mathematically as
 \begin{align*}
 	\sum \vec{F} = m\vec{a},
 \end{align*}
-where \(\Sigma\) is shorthand for "sum of all" and \(\vec{F}\) is shorthand for the forces acting on our system (character). \(\vec{a}\) is the acceleration vector that we want to find, since it can be used to calculate per frame change in velocity.
+where \(\Sigma\) is shorthand for ''sum of all'' and \(\vec{F}\) is shorthand for the forces acting on our system (character). \(\vec{a}\) is the acceleration vector that we want to find, since it can be used to calculate per frame change in velocity.
  
 Using the forces defined for our system we get
  \begin{align*}
@@ -272,7 +283,7 @@ which is the acceleration we're interested in. We can then find the change in ve
                          &= \vec{v}_{\text{old}} + \vec{a}\Delta t.
 \end{align*}
 
-\subsection{Finding change in position}
+\subsection{Finding change in position} \label{sec:Sliding:subsec:FindPos}
 Now that we have found the change in velocity between frames, we need to find the change in position, which gives us the actual motion of the character. To do this, we use that the change in position over a given time is equal to the updated velocity multiplied by deltaTime
 \begin{align*}
     \vec{r}_{\text{new}} &= \vec{r}_{\text{old}} + \vec{v}_{\text{new}}\Delta t \\
